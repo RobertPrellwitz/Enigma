@@ -1,16 +1,19 @@
 package server;
 import java.net.*;
 import java.io.*;
+import java.time.*;
+
 
 class ServerThread extends Thread
 {
 Socket sock;
-PrintWriter writeSock;
+PrintWriter writeSock; // socketio
+PrintWriter logWrite;  // log writer
 BufferedReader readSock;
 
-public ServerThread (Socket plug) 
+public ServerThread (Socket clientSock, PrintWriter writeSock) 
 {
-	sock = plug;
+	sock = clientSock;
 	try {
 	writeSock = new PrintWriter(sock.getOutputStream(),true);
 	readSock = new BufferedReader( new InputStreamReader(
@@ -24,18 +27,26 @@ public ServerThread (Socket plug)
 
 public void run() 
 {
+	String date; String internet; String port;
+	date = Date().toString();  internet = sock.getInetAddress(); port = sock.getPort();
 	boolean quitTime = false;
 	 while( !quitTime )
 	 {
 	try 
 	{
+	 String outLine = "Date / Time: " + date +" Internet Addresss: " + internet + " Port#: "+ port);
+	 writeSock.println(outLine);
 	 String inLine = readSock.readLine(); 
-	 String outLine = inLine + "HaHa!" ;
-	 writeSock.println( outLine );
-	 if( inLine.equals("quit"))
-	 quitTime = true;
-	 sock.close();
+	 
+	 // call PolyAlphabet
+	 
+	 if( inLine.equals("quit")) 
+	 {
+		 writeSock.println("connection closed");
+		 quitTime = true;
+		 sock.close();
 	 }
+	}
 	 
 	 
 	 catch(IOException except) 

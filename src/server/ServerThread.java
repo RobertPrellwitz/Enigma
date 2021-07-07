@@ -2,6 +2,7 @@ package server;
 import java.net.*;
 import java.io.*;
 import java.time.*;
+import java.util.*;
 
 
 class ServerThread extends Thread
@@ -27,14 +28,16 @@ public ServerThread (Socket clientSock, PrintWriter writeSock)
 
 public void run() 
 {
-	String date; String internet; String port;
-	date = Date().toString();  internet = sock.getInetAddress(); port = sock.getPort();
+	String date=""; String internet=""; String port="";
+	
+//	date = Date().toString();  internet = sock.getInetAddress(); port = sock.getPort();
+//	
 	boolean quitTime = false;
 	 while( !quitTime )
 	 {
 	try 
 	{
-	 String outLine = "Date / Time: " + date +" Internet Addresss: " + internet + " Port#: "+ port);
+	 String outLine = ("New Connection: Date / Time: " + date +" Internet Addresss: " + internet + " Port#: "+ port);
 	 writeSock.println(outLine);
 	 String inLine = readSock.readLine(); 
 	 
@@ -51,7 +54,7 @@ public void run()
 	 
 	 catch(IOException except) 
 	 {
- 
+		 writeSock.println("Exception: "+ except);
 	 }
 	 }	
 }

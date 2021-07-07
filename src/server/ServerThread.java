@@ -20,7 +20,6 @@ public ServerThread (Socket plug)
 	{
 		
 	}
-	
 }
 
 public void run() 

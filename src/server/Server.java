@@ -7,7 +7,6 @@ import java.io.*;
 public class Server {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 		Server enigma = new Server();
 		enigma.run();
@@ -19,6 +18,8 @@ public class Server {
 		try 
 		{
 		ServerSocket servSock = new ServerSocket(portNum);
+		PrintWriter writeSock = new PrintWriter(new FileOutputStream("prog2.log"),true);
+		
 		while (true) 
 		{
 			Socket sock = servSock.accept();
@@ -31,6 +32,7 @@ public class Server {
 		{
 			
 		}
+		
 	}
 
 }

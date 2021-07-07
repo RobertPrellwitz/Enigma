@@ -1,5 +1,6 @@
 package enigma;
 
-public class PolyAlphabet {
+public class PolyAlphabet 
+{
 
 }

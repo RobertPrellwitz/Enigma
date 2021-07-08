@@ -1,4 +1,6 @@
 package server;
+import enigma.PolyAlphabet;
+
 import java.net.*;
 import java.io.*;
 import java.time.*;
@@ -12,10 +14,11 @@ PrintWriter writeSock; // socketio
 PrintWriter logWrite;  // log writer
 BufferedReader readSock;
 
-public ServerThread (Socket clientSock, PrintWriter writeSock) 
+public ServerThread (Socket s, PrintWriter write)
 {
-	sock = clientSock;
+	sock = s;
 	try {
+	logWrite = write;
 	writeSock = new PrintWriter(sock.getOutputStream(),true);
 	readSock = new BufferedReader( new InputStreamReader(
 			 sock.getInputStream() ) );
@@ -28,21 +31,24 @@ public ServerThread (Socket clientSock, PrintWriter writeSock)
 
 public void run() 
 {
-	String date=""; String internet=""; String port="";
-	
-//	date = Date().toString();  internet = sock.getInetAddress(); port = sock.getPort();
-//	
+	String date=LocalDate.now().toString(); String internet= sock.getInetAddress().toString(); int port = sock.getPort();
+	String outLine = ("New Connection: Date / Time: " + date +" Internet Addresss: " + internet + " Port#: "+ port);
+	writeSock.println(outLine);
+	System.out.println(outLine);
 	boolean quitTime = false;
 	 while( !quitTime )
 	 {
-	try 
+	try
 	{
-	 String outLine = ("New Connection: Date / Time: " + date +" Internet Addresss: " + internet + " Port#: "+ port);
-	 writeSock.println(outLine);
+
 	 String inLine = readSock.readLine(); 
-	 
-	 // call PolyAlphabet
-	 
+	 String output = "";
+	 // call PolyAlphabe
+	 PolyAlphabet enigma = new PolyAlphabet(inLine);
+	 output = (enigma.cipher(inLine));
+	 writeSock.println(output);
+	 //writeSock.println();
+	 System.out.println();
 	 if( inLine.equals("quit")) 
 	 {
 		 writeSock.println("connection closed");

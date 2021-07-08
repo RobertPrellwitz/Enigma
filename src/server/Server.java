@@ -22,8 +22,9 @@ public class Server {
 			while (true) {
 				Socket sock = servSock.accept();
 				ServerThread servThread = new ServerThread(sock, writeSock);
-				servThread.run();
-				//new ServerThread(servSock.accept().run());
+				//servThread.run();
+				servThread.start();
+				
 			}
 		} catch (IOException exp) {
 

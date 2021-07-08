@@ -19,14 +19,12 @@ public class Server {
 		{
 		ServerSocket servSock = new ServerSocket(portNum);
 		PrintWriter writeSock = new PrintWriter(new FileOutputStream("prog2.log"),true);
-		int i = 150;
-		int counter =0;
-		while (counter < i)
+
+		while (true)
 		{
 			Socket sock = servSock.accept();
 			ServerThread servThread = new ServerThread(sock, writeSock);
 			servThread.run();
-			counter++;
 		}
 		}
 		

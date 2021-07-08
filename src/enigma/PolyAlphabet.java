@@ -11,11 +11,12 @@ public String cipher(String message)
 {
     StringBuilder caesar = new StringBuilder(message.length());
 
-    int c1 = 5; int c2 = 19; int shift; char temp; int j;
+    int c1 = 5; int c2 = 19; int shift; char temp; int j;int count = 0;
     for(int i = 0; i < message.length(); i++)
     {
-        j = i/5;
-        if ( (i == j*5+1) || (i==j*5+2) || (i==j*5+4) )
+
+        j = count/5;
+        if ( (count == j*5+1) || (count==j*5+2) || (count==j*5+4) )
         {
             shift = c2;
         }
@@ -28,6 +29,7 @@ public String cipher(String message)
             if (test > 90)
                 test = test - 26;
             temp = (char) (test);
+            count++;
         }
         else if (test > 96 && test < 123)
         {
@@ -35,6 +37,7 @@ public String cipher(String message)
             if (test > 122)
                 test = test - 26;
             temp = (char) (test);
+            count++;
         }
         else {
             temp = (char) (test);

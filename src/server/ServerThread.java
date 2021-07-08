@@ -31,36 +31,48 @@ public ServerThread (Socket s, PrintWriter write)
 
 public void run() 
 {
-	String date=LocalDate.now().toString(); String internet= sock.getInetAddress().toString(); int port = sock.getPort();
+	String date=LocalDateTime.now().toString(); String internet= sock.getInetAddress().toString(); int port = sock.getPort();String output = "";
 	String outLine = ("New Connection: Date / Time: " + date +" Internet Addresss: " + internet + " Port#: "+ port);
 	writeSock.println(outLine);
+	writeSock.flush();
 	System.out.println(outLine);
+	logWrite.println(outLine);
+
 	boolean quitTime = false;
 	 while( !quitTime )
 	 {
 	try
 	{
 
-	 String inLine = readSock.readLine(); 
-	 String output = "";
-	 // call PolyAlphabe
+	 String inLine = readSock.readLine();
 	 PolyAlphabet enigma = new PolyAlphabet(inLine);
+	 String check = inLine.toLowerCase();
+		if (check.equals("hello"))
+		{
+			writeSock.println("Hello and Welcome. Please enter your text!");
+			writeSock.flush();
+		}
+		if( check.equals("quit"))
+		{
+			writeSock.println("connection closed");
+			writeSock.flush();
+			logWrite.println("Connection Terminatated at: "+ LocalDateTime.now().toString());
+			quitTime = true;
+			sock.close();
+		}
+
 	 output = (enigma.cipher(inLine));
 	 writeSock.println(output);
-	 //writeSock.println();
-	 System.out.println();
-	 if( inLine.equals("quit")) 
-	 {
-		 writeSock.println("connection closed");
-		 quitTime = true;
-		 sock.close();
-	 }
+	 writeSock.flush();
+	 System.out.println(output);
+
 	}
 	 
 	 
 	 catch(IOException except) 
 	 {
 		 writeSock.println("Exception: "+ except);
+		 logWrite.println("Exception: "+ except);
 	 }
 	 }	
 }

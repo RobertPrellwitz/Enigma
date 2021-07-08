@@ -14,21 +14,21 @@ public class Server {
 	public void run () {
 		int portNum = 5764;
 
-		PrintWriter writeSock = null;
+		PrintWriter logWrite = null;
 		try {
 			ServerSocket servSock = new ServerSocket(portNum);
-			writeSock = new PrintWriter(new FileOutputStream("prog2.log"), true);
+			logWrite = new PrintWriter(new FileOutputStream("prog2.log"), true);
 
 			while (true) {
 				Socket sock = servSock.accept();
-				ServerThread servThread = new ServerThread(sock, writeSock);
+				ServerThread servThread = new ServerThread(sock, logWrite);
 				//servThread.run();
 				servThread.start();
 				
 			}
 		} catch (IOException exp) {
 
-			writeSock.println("ErrorLog: " + exp);
+			logWrite.println("ErrorLog: " + exp);
 		}
 	}
 }

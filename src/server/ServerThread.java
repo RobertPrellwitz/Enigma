@@ -45,14 +45,13 @@ public void run()
 	{
 
 	 String inLine = readSock.readLine();
-	 PolyAlphabet enigma = new PolyAlphabet(inLine);
 	 String check = inLine.toLowerCase();
 		if (check.equals("hello"))
 		{
 			writeSock.println("Hello and Welcome. Please enter your text!");
 			writeSock.flush();
 		}
-		if( check.equals("quit"))
+		else if( check.equals("quit"))
 		{
 			writeSock.println("connection closed");
 			writeSock.flush();
@@ -60,12 +59,14 @@ public void run()
 			quitTime = true;
 			sock.close();
 		}
-
-	 output = (enigma.cipher(inLine));
-	 writeSock.println(output);
-	 writeSock.flush();
-	 System.out.println(output);
-
+		else
+		{
+			PolyAlphabet enigma = new PolyAlphabet(inLine);
+			output = (enigma.cipher(inLine));
+			writeSock.println(output);
+			System.out.println(output);
+			writeSock.flush();
+		}
 	}
 	 
 	 

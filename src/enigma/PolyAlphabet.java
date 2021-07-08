@@ -11,11 +11,11 @@ public String cipher(String message)
 {
     StringBuilder caesar = new StringBuilder(message.length());
 
-    int c1 = 5; int c2 = 19; int shift; char temp;
+    int c1 = 5; int c2 = 19; int shift; char temp; int j;
     for(int i = 0; i < message.length(); i++)
     {
-
-        if ((i+1) % 5 == 0 || (i+1) % 3 == 0 ||  (i+1) % 4 == 2 )
+        j = i/5;
+        if ( (i == j*5+1) || (i==j*5+2) || (i==j*5+4) )
         {
             shift = c2;
         }

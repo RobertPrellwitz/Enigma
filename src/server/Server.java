@@ -12,7 +12,7 @@ public class Server {
 		enigma.run();
 	}
 	public void run () {
-		int portNum = 5764;
+		int portNum = 5775;
 
 		PrintWriter logWrite = null;
 		try {

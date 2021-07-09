@@ -4,7 +4,6 @@ public class PolyAlphabet
 {
 public PolyAlphabet(String sample)
 {
-    //String message = sample;
     cipher(sample);
 }
 public String cipher(String message)

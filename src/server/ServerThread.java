@@ -25,7 +25,7 @@ public ServerThread (Socket s, PrintWriter write)
 	}
 	catch(IOException except) 
 	{
-		
+		logWrite.println("IO Execption: " + except);
 	}
 }
 
@@ -48,6 +48,8 @@ public void run()
 	 String check = inLine.toLowerCase();
 		if (check.equals("hello"))
 		{
+			writeSock.print("");
+			writeSock.flush();
 			writeSock.println("Hello and Welcome. Please enter your text!");
 			writeSock.flush();
 		}

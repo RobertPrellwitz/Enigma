@@ -22,7 +22,6 @@ public class Server {
 			while (true) {
 				Socket sock = servSock.accept();
 				ServerThread servThread = new ServerThread(sock, logWrite);
-				//servThread.run();
 				servThread.start();
 				
 			}

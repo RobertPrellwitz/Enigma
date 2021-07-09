@@ -34,7 +34,6 @@ public void run()
 	String date=LocalDateTime.now().toString(); String internet= sock.getInetAddress().toString(); int port = sock.getPort();String output = "";
 	String outLine = ("New Connection: Date / Time: " + date +" Internet Addresss: " + internet + " Port#: "+ port);
 	writeSock.println(outLine);
-	writeSock.flush();
 	System.out.println(outLine);
 	logWrite.println(outLine);
 
@@ -48,18 +47,23 @@ public void run()
 	 String check = inLine.toLowerCase();
 		if (check.equals("hello"))
 		{
-			writeSock.print("");
-			writeSock.flush();
-			writeSock.println("Hello and Welcome. Please enter your text!");
-			writeSock.flush();
+			String message = "Hello, Welcome to Enigma!  Please enter your text";
+			//writeSock.flush();
+			writeSock.println(message);
+			//writeSock.flush();
+			System.out.println(message);
 		}
 		else if( check.equals("quit"))
 		{
-			writeSock.println("connection closed");
+			String close = "Connection Terminatated at: "+ LocalDateTime.now().toString();
+			writeSock.println(close);
 			writeSock.flush();
-			logWrite.println("Connection Terminatated at: "+ LocalDateTime.now().toString());
+			logWrite.println(close);
+			System.out.println(close);
 			quitTime = true;
 			sock.close();
+			writeSock.close();
+			readSock.close();
 		}
 		else
 		{
